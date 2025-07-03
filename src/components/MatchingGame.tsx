@@ -9,6 +9,7 @@ interface MatchingGameProps {
 
 const MatchingGame: React.FC<MatchingGameProps> = ({ options, onComplete }) => {
   const [selectedOption, setSelectedOption] = useState<Option | null>(null);
+  const [selectedMeaning, setSelectedMeaning] = useState<string | null>(null);
   const [matchedPairs, setMatchedPairs] = useState<Array<{ optionId: string; meaning: string }>>([]);
   const [score, setScore] = useState(0);
 
@@ -16,8 +17,18 @@ const MatchingGame: React.FC<MatchingGameProps> = ({ options, onComplete }) => {
     if (selectedOption === null) {
       setSelectedOption(option);
     } else {
+      // 如果已經選了一個選項，再點選項就換選項
+      setSelectedOption(option);
+    }
+  };
+
+  const handleMeaningClick = (meaning: string, optionId: string) => {
+    if (selectedOption === null) {
+      // 如果還沒選選項，先選意思
+      setSelectedMeaning(meaning);
+    } else {
       // 檢查是否配對正確
-      if (selectedOption.meaning === option.text || selectedOption.text === option.meaning) {
+      if (selectedOption.meaning === meaning) {
         const newPair = {
           optionId: selectedOption.id,
           meaning: selectedOption.meaning
@@ -33,6 +44,7 @@ const MatchingGame: React.FC<MatchingGameProps> = ({ options, onComplete }) => {
         setScore(Math.max(0, score - 5));
       }
       setSelectedOption(null);
+      setSelectedMeaning(null);
     }
   };
 
@@ -42,6 +54,10 @@ const MatchingGame: React.FC<MatchingGameProps> = ({ options, onComplete }) => {
 
   const isSelected = (option: Option) => {
     return selectedOption?.id === option.id;
+  };
+
+  const isMeaningSelected = (meaning: string) => {
+    return selectedMeaning === meaning;
   };
 
   return (
@@ -74,8 +90,8 @@ const MatchingGame: React.FC<MatchingGameProps> = ({ options, onComplete }) => {
             {options.map(option => (
               <div
                 key={`meaning_${option.id}`}
-                className={`meaning-item ${isMatched(option) ? 'matched' : ''}`}
-                onClick={() => !isMatched(option) && handleOptionClick(option)}
+                className={`meaning-item ${isMatched(option) ? 'matched' : ''} ${isMeaningSelected(option.meaning) ? 'selected' : ''}`}
+                onClick={() => !isMatched(option) && handleMeaningClick(option.meaning, option.id)}
               >
                 {option.meaning}
               </div>

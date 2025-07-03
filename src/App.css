@@ -244,6 +244,12 @@
   opacity: 0.7;
 }
 
+.meaning-item.selected {
+  border-color: #ffd700;
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+}
+
 /* 遊戲區域 */
 .game-area {
   display: grid;

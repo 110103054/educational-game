@@ -290,13 +290,23 @@
   transition: all 0.3s ease;
 }
 
-.place-button {
+.check-button {
   background: #4CAF50;
   color: white;
 }
 
-.place-button:hover:not(:disabled) {
+.check-button:hover:not(:disabled) {
   background: #45a049;
+  transform: translateY(-2px);
+}
+
+.reset-button {
+  background: #FF9800;
+  color: white;
+}
+
+.reset-button:hover {
+  background: #F57C00;
   transform: translateY(-2px);
 }
 
@@ -368,17 +378,51 @@ button:disabled {
   margin: 0;
 }
 
-/* 已放置選項 */
-.placed-options {
+/* 答案回饋 */
+.answer-feedback {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  padding: 2rem;
   margin: 2rem 0;
+  backdrop-filter: blur(10px);
 }
 
-.placed-options h4 {
+.answer-feedback h4 {
   margin: 0 0 1rem 0;
   color: #fff;
 }
 
-.placed-grid {
+.feedback-message {
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding: 1rem;
+  border-radius: 8px;
+  margin: 1rem 0;
+  text-align: center;
+}
+
+.feedback-message.correct {
+  background: rgba(76, 175, 80, 0.3);
+  border: 2px solid #4CAF50;
+  color: #4CAF50;
+}
+
+.feedback-message.incorrect {
+  background: rgba(244, 67, 54, 0.3);
+  border: 2px solid #F44336;
+  color: #F44336;
+}
+
+.correct-answer {
+  margin-top: 1rem;
+}
+
+.correct-answer h5 {
+  margin: 0 0 1rem 0;
+  color: #fff;
+}
+
+.correct-options {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;

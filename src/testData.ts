@@ -54,17 +54,32 @@ export const sampleOptions: Option[] = [
 export const sampleQuestions: Question[] = [
   {
     id: 'q1',
-    description: '選擇所有水果',
+    description: '選擇所有水果（可以多選）',
     correctOptions: ['1', '2', '3'] // 蘋果、香蕉、橘子
   },
   {
     id: 'q2',
-    description: '選擇所有動物',
+    description: '選擇所有動物（可以多選）',
     correctOptions: ['4', '5', '6'] // 貓、狗、鳥
   },
   {
     id: 'q3',
-    description: '選擇所有文具',
+    description: '選擇所有文具（可以多選）',
     correctOptions: ['7', '8'] // 書、筆
+  },
+  {
+    id: 'q4',
+    description: '選擇紅色水果',
+    correctOptions: ['1'] // 蘋果
+  },
+  {
+    id: 'q5',
+    description: '選擇會飛的動物',
+    correctOptions: ['6'] // 鳥
+  },
+  {
+    id: 'q6',
+    description: '選擇寫字用的工具',
+    correctOptions: ['8'] // 筆
   }
 ]; 

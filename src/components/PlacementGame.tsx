@@ -13,6 +13,8 @@ const PlacementGame: React.FC<PlacementGameProps> = ({ options, questions, onCom
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
   const [score, setScore] = useState(0);
   const [placedOptions, setPlacedOptions] = useState<string[]>([]);
+  const [showAnswer, setShowAnswer] = useState(false);
+  const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
 
   const currentQuestion = questions[currentQuestionIndex];
 
@@ -24,25 +26,33 @@ const PlacementGame: React.FC<PlacementGameProps> = ({ options, questions, onCom
     }
   };
 
-  const handlePlaceOptions = () => {
-    const isCorrect = selectedOptions.every(optionId => 
+  const handleCheckAnswer = () => {
+    const correct = selectedOptions.every(optionId => 
       currentQuestion.correctOptions.includes(optionId)
     ) && selectedOptions.length === currentQuestion.correctOptions.length;
 
-    if (isCorrect) {
+    setIsCorrect(correct);
+    setShowAnswer(true);
+
+    if (correct) {
       setScore(score + 20);
-      setPlacedOptions([...placedOptions, ...selectedOptions]);
     } else {
       setScore(Math.max(0, score - 10));
     }
+  };
 
+  const handleResetQuestion = () => {
     setSelectedOptions([]);
+    setShowAnswer(false);
+    setIsCorrect(null);
   };
 
   const handleNextQuestion = () => {
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
       setSelectedOptions([]);
+      setShowAnswer(false);
+      setIsCorrect(null);
     } else {
       onComplete(score);
     }
@@ -94,12 +104,21 @@ const PlacementGame: React.FC<PlacementGameProps> = ({ options, questions, onCom
 
         <div className="game-controls">
           <button 
-            className="place-button"
-            onClick={handlePlaceOptions}
-            disabled={selectedOptions.length === 0}
+            className="check-button"
+            onClick={handleCheckAnswer}
+            disabled={selectedOptions.length === 0 || showAnswer}
           >
-            放置選項
+            檢查答案
           </button>
+          
+          {showAnswer && (
+            <button 
+              className="reset-button"
+              onClick={handleResetQuestion}
+            >
+              重新練習
+            </button>
+          )}
           
           <button 
             className="next-button"
@@ -111,21 +130,31 @@ const PlacementGame: React.FC<PlacementGameProps> = ({ options, questions, onCom
         </div>
       </div>
 
-      <div className="placed-options">
-        <h4>已放置的選項：</h4>
-        <div className="placed-grid">
-          {placedOptions.map(optionId => {
-            const option = options.find(opt => opt.id === optionId);
-            return option ? (
-              <ColorBlock
-                key={option.id}
-                option={option}
-                isMatched={true}
-              />
-            ) : null;
-          })}
+      {showAnswer && (
+        <div className="answer-feedback">
+          <h4>答案回饋：</h4>
+          <div className={`feedback-message ${isCorrect ? 'correct' : 'incorrect'}`}>
+            {isCorrect ? '✅ 正確！' : '❌ 不正確，請重新練習'}
+          </div>
+          {!isCorrect && (
+            <div className="correct-answer">
+              <h5>正確答案：</h5>
+              <div className="correct-options">
+                {currentQuestion.correctOptions.map(optionId => {
+                  const option = options.find(opt => opt.id === optionId);
+                  return option ? (
+                    <ColorBlock
+                      key={option.id}
+                      option={option}
+                      isMatched={true}
+                    />
+                  ) : null;
+                })}
+              </div>
+            </div>
+          )}
         </div>
-      </div>
+      )}
 
       <div className="game-controls-bottom">
         <button className="add-question-button" onClick={handleAddQuestion}>

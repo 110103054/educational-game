@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/educational-game/static/css/main.d656e151.css",
-    "main.js": "/educational-game/static/js/main.87504572.js",
+    "main.css": "/educational-game/static/css/main.a69f00f3.css",
+    "main.js": "/educational-game/static/js/main.638c69c7.js",
     "static/js/453.142c869d.chunk.js": "/educational-game/static/js/453.142c869d.chunk.js",
     "index.html": "/educational-game/index.html",
-    "main.d656e151.css.map": "/educational-game/static/css/main.d656e151.css.map",
-    "main.87504572.js.map": "/educational-game/static/js/main.87504572.js.map",
+    "main.a69f00f3.css.map": "/educational-game/static/css/main.a69f00f3.css.map",
+    "main.638c69c7.js.map": "/educational-game/static/js/main.638c69c7.js.map",
     "453.142c869d.chunk.js.map": "/educational-game/static/js/453.142c869d.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.d656e151.css",
-    "static/js/main.87504572.js"
+    "static/css/main.a69f00f3.css",
+    "static/js/main.638c69c7.js"
   ]
 }
